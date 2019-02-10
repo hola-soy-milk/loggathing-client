@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import ThingSelect from "./ThingLogger/ThingSelect";
+import CreatableSelect from "react-select/lib/Creatable";
 
 const GET_THINGS = gql`
 {
@@ -36,7 +36,13 @@ export default class ThingLogger extends Component {
           }
         });
 
-        return <ThingSelect options={options}/>
+        return (
+          <CreatableSelect
+          isClearable
+          //onChange={this.handleChange}
+          options={options}
+          />
+        );
 
       }}
       </Query>;
