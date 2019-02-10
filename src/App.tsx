@@ -3,7 +3,7 @@ import logo from './logo.svg';
 
 import { ApolloProvider } from "react-apollo";
 import api from "./core/Api";
-import ThingSelect from "./components/ThingSelect";
+import ThingLogger from "./components/ThingLogger";
 import './App.css';
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
       <ApolloProvider client={api}>
-      <ThingSelect />
+      <ThingLogger />
       </ApolloProvider>
       </div>
     );
