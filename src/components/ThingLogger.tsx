@@ -29,6 +29,7 @@ export default class ThingLogger extends Component<any, State> {
     super(props);
     this.thingSelected = this.thingSelected.bind(this);
     this.addPropFields = this.addPropFields.bind(this);
+    this.propChanged = this.propChanged.bind(this);
   }
 
   componentWillMount() {
@@ -48,6 +49,9 @@ export default class ThingLogger extends Component<any, State> {
       value: '',
     });
     this.setState({...this.state, props: props});
+  }
+
+  propChanged(oldProp : Prop, newProp : Prop) {
   }
 
   render() {
@@ -71,7 +75,7 @@ export default class ThingLogger extends Component<any, State> {
             options={options}
             />
           { this.state.props.map((prop) => {
-            return <PropForm prop={prop}/>
+            return <PropForm onChange={this.propChanged} prop={prop}/>
           })}
           <button onClick={this.addPropFields}>Add prop</button>
           </form>
