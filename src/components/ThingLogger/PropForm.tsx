@@ -19,6 +19,11 @@ const PropTypes : PropKind[] = [
     label: 'Date',
     component: '',
   },
+  {
+    key: 'rating',
+    label: 'Rating',
+    component: '',
+  },
 ]
 
 export default class PropForm extends Component<Input> {
@@ -28,7 +33,9 @@ export default class PropForm extends Component<Input> {
   }
 
   handleChange(event : any) {
-    this.props.onChange(this.props.prop, event.target.value);
+    let newProp = {...this.props.prop}
+    newProp.kind = event.target.value;
+    this.props.onChange(this.props.prop, newProp);
   }
 
   render() {

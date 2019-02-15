@@ -52,6 +52,10 @@ export default class ThingLogger extends Component<any, State> {
   }
 
   propChanged(oldProp : Prop, newProp : Prop) {
+    let index = this.state.props.indexOf(oldProp);
+    let props = [...this.state.props];
+    props[index] = newProp;
+    this.setState({...this.state, props: props});
   }
 
   render() {
