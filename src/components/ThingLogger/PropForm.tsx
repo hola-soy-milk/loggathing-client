@@ -14,10 +14,6 @@ interface PropKind {
   [key: string]: string;
 }
 
-interface State {
-  propKind: PropKind;
-}
-
 const PropTypes : PropKind[] = [
   {
     key: 'date',
@@ -73,10 +69,7 @@ export default class PropForm extends Component<Input> {
       ))}
       </select>
       </label>
-      <label>
-      Value:
       {this.componentForPropKind(this.props.prop.kind)}
-    </label>
       </div>;
   }
 }

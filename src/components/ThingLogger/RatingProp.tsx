@@ -4,8 +4,6 @@ import PropInput from '../../interfaces/PropInput';
 
 export default class RatingProp extends Component<PropInput> {
   render() {
-    return <div>
-      <h1>I AM ALSO ALIVE</h1>
-      </div>;
+    return <h1>I AM ALSO ALIVE</h1>;
   }
 }
