@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Prop from '../../interfaces/Prop';
 import DateProp from './DateProp';
+import RatingProp from './RatingProp';
 
 interface Input {
   prop: Prop;
@@ -10,46 +11,54 @@ interface Input {
 interface PropKind {
   key: string;
   label: string;
-  component: any;
+  [key: string]: string;
 }
 
 interface State {
   propKind: PropKind;
 }
 
-export default class PropForm extends Component<Input> {
-  readonly PropTypes: PropKind[] = [
-    {
-      key: 'date',
-      label: 'Date',
-      component: '',
-    },
-    {
-      key: 'rating',
-      label: 'Rating',
-      component: '',
-    },
-  ];
+const PropTypes : PropKind[] = [
+  {
+    key: 'date',
+    label: 'Date',
+  },
+  {
+    key: 'rating',
+    label: 'Rating',
+  },
+];
 
+export default class PropForm extends Component<Input> {
   constructor(props : any) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.componentForPropKind = this.componentForPropKind.bind(this);
   }
 
   componentWillMount() {
-    this.setState({propKind: this.PropTypes[0]});
+    this.setState({propKind: PropTypes[0]});
+  }
+
+  componentForPropKind(kind : string) {
+    switch (kind) {
+      case 'date':
+        return <DateProp value={this.props.prop.value} />;
+      case 'rating':
+        return <RatingProp value={this.props.prop.value} />;
+      default:
+        return null;
+    }
   }
 
   handleChange(event : any) {
     let newProp = {...this.props.prop}
     newProp.kind = event.target.value;
     this.props.onChange(this.props.prop, newProp);
-    if(this.PropTypes && Array.isArray(this.PropTypes)) {
-      let propKind = this.PropTypes.find((kind) => {
-        return kind['key'] == newProp.kind;
-      })[0];
-      this.setState({propKind: propKind});
-    }
+    let propKind = PropTypes.find((kind : PropKind) => {
+      return kind['key'] == newProp.kind;
+    })[0];
+    this.setState({propKind: propKind});
   }
 
   render() {
@@ -57,7 +66,7 @@ export default class PropForm extends Component<Input> {
       <label>
       Kind:
     <select name="thing" onChange={this.handleChange}>
-      {this.PropTypes.map(propType => (
+      {PropTypes.map(propType => (
         <option key={propType.key} value={propType.key}>
         {propType.label}
         </option>
@@ -66,6 +75,7 @@ export default class PropForm extends Component<Input> {
       </label>
       <label>
       Value:
+      {this.componentForPropKind(this.props.prop.kind)}
     </label>
       </div>;
   }
