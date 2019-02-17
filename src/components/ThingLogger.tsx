@@ -45,7 +45,7 @@ export default class ThingLogger extends Component<any, State> {
     e.preventDefault();
     let props = [...this.state.props];
     props.push({
-      kind: '',
+      kind: 'date',
       value: '',
     });
     this.setState({...this.state, props: props});
