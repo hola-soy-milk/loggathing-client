@@ -17,10 +17,11 @@ export default class DateProp extends Component<PropInput, { date : Date }> {
     });
   }
 
-  handleChange(date : Date) {
-    this.setState({
+  async handleChange(date : Date) {
+    await this.setState({
       date: date
     });
+    this.props.handleChange(JSON.stringify(date))
   }
 
   render() {

@@ -29,6 +29,7 @@ export default class PropForm extends Component<Input> {
   constructor(props : any) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
     this.componentForPropKind = this.componentForPropKind.bind(this);
   }
 
@@ -39,9 +40,9 @@ export default class PropForm extends Component<Input> {
   componentForPropKind(kind : string) {
     switch (kind) {
       case 'date':
-        return <DateProp value={this.props.prop.value} />;
+        return <DateProp handleChange={this.handleValueChange} value={this.props.prop.value} />;
       case 'rating':
-        return <RatingProp value={this.props.prop.value} />;
+        return <RatingProp handleChange={this.handleValueChange} value={this.props.prop.value} />;
       default:
         return null;
     }
@@ -55,6 +56,13 @@ export default class PropForm extends Component<Input> {
       return kind['key'] == newProp.kind;
     })[0];
     this.setState({propKind: propKind});
+  }
+
+  handleValueChange(value : string) {
+    let newProp = {...this.props.prop}
+    newProp.value = value;
+    this.props.onChange(this.props.prop, newProp);
+    this.setState({value: value});
   }
 
   render() {
