@@ -10,7 +10,11 @@
     "@types/react-dom": "16.8.0",
     "@types/react-select": "^2.0.11",
     "apollo-boost": "^0.1.27",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "bulma": "^0.7.4",
     "graphql": "^14.1.1",
+    "parcel-bundler": "^1.11.0",
     "react": "^16.8.1",
     "react-apollo": "^2.4.1",
     "react-datepicker": "^2.1.0",
@@ -21,8 +25,8 @@
     "typescript": "3.3.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "./node_modules/.bin/parcel ./src/index.html",
+    "build": "./node_modules/.bin/parcel build ./src/index.html/",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +38,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  }
 }
