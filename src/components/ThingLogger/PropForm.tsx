@@ -58,11 +58,14 @@ export default class PropForm extends Component<Input> {
     this.setState({propKind: propKind});
   }
 
-  handleValueChange(value : string) {
+  handleValueChange(value : any) {
     let newProp = {...this.props.prop}
-    newProp.value = value;
+    newProp.value = JSON.stringify(value);
     this.props.onChange(this.props.prop, newProp);
-    this.setState({value: value});
+    let propKind = PropTypes.find((kind : PropKind) => {
+      return kind['value'] == newProp.value;
+    })[0];
+    this.setState({propKind: propKind});
   }
 
   render() {
