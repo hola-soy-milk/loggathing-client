@@ -65,11 +65,15 @@ export default class ThingLogger extends Component<any, State> {
   }
 
   async thingSelected(selected : any, bla : any) {
-    let thing = this.state.availableThings.find((t : Thing) => {
-      return t.id == selected.value;
-    });
-    console.log(JSON.stringify(thing));
-    await this.setState({ ...this.state, props: thing.props, selectedThing: thing  });
+    if (selected === null) {
+      await this.setState({ ...this.state, props: [], selectedThing: {name: ""} });
+    }
+    else {
+      let thing = this.state.availableThings.find((t : Thing) => {
+        return t.id == selected.value;
+      });
+      await this.setState({ ...this.state, props: thing.props, selectedThing: thing  });
+    }
   }
 
   addPropFields(e : any) {
@@ -133,8 +137,8 @@ export default class ThingLogger extends Component<any, State> {
               { this.state.props.map((prop) => {
                 return <PropForm onChange={this.propChanged} prop={prop}/>
               })}
-              <button onClick={this.addPropFields}>Add prop</button>
-              <button type="submit">Loggit</button>
+              <button disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""} onClick={this.addPropFields}>Add prop</button>
+              <button type="submit" disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""}>Loggit</button>
               </form>
             )}
             </Mutation>
