@@ -70,17 +70,27 @@ export default class PropForm extends Component<Input> {
 
   render() {
     return <div>
-      <label>
-      Kind:
-    <select name="thing" onChange={this.handleChange}>
-      {PropTypes.map(propType => (
-        <option key={propType.key} value={propType.key}>
-        {propType.label}
-        </option>
-      ))}
-      </select>
-      </label>
-      {this.componentForPropKind(this.props.prop.kind)}
-      </div>;
+      <div className="control">
+        <div className="level">
+          <div className="level-item">
+            <label className="label">
+              Kind:
+            </label>
+            <div className="select">
+              <select className="input" name="thing" onChange={this.handleChange}>
+                  {PropTypes.map(propType => (
+                    <option key={propType.key} value={propType.key}>
+                    {propType.label}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+          <div className="level-item">
+            {this.componentForPropKind(this.props.prop.kind)}
+          </div>
+        </div>
+      </div>
+    </div>;
   }
 }

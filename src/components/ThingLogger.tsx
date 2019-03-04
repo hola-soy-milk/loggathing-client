@@ -5,6 +5,7 @@ import CreatableSelect from "react-select/lib/Creatable";
 import PropForm from "./ThingLogger/PropForm";
 import Prop from "../interfaces/Prop";
 
+
 const GET_THINGS = gql`
 {
   things {
@@ -72,6 +73,9 @@ export default class ThingLogger extends Component<any, State> {
       let thing = this.state.availableThings.find((t : Thing) => {
         return t.id == selected.value;
       });
+      if (thing === undefined) {
+        thing = {name: selected.value, props: []}
+      }
       await this.setState({ ...this.state, props: thing.props, selectedThing: thing  });
     }
   }
@@ -129,16 +133,18 @@ export default class ThingLogger extends Component<any, State> {
                 await this.setState({...this.state, isFirstRender: false});
               }}
               >
+              <div className="field">
               <CreatableSelect
               isClearable
               onChange={this.thingSelected}
               options={options}
               />
+              </div>
               { this.state.props.map((prop) => {
-                return <PropForm onChange={this.propChanged} prop={prop}/>
+                return <div className="field"> <PropForm onChange={this.propChanged} prop={prop}/></div>
               })}
-              <button disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""} onClick={this.addPropFields}>Add prop</button>
-              <button type="submit" disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""}>Loggit</button>
+              <button className="button" disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""} onClick={this.addPropFields}>Add prop</button>
+              <button className="button" type="submit" disabled={this.state.selectedThing === undefined || this.state.selectedThing.name === ""}>Loggit</button>
               </form>
             )}
             </Mutation>

@@ -25,7 +25,7 @@ export default class DateProp extends Component<PropInput, { date : Date }> {
   }
 
   render() {
-    return <DatePicker
+    return <DatePicker className="input"
     selected={this.state.date}
     onChange={this.handleChange}
       />;
